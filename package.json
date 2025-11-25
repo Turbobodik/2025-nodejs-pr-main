@@ -1,0 +1,12 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node test/index.js",
+    "test": "node test/index.js"
+  },
+  "author": "bahdan kanoplich",
+  "license": "ISC"
+}
