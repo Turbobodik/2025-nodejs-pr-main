@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node test/index.js",
-    "test": "node test/index.js"
+    "start": "node pr-2/index.js",
+    "test": "node pr-2/index.js"
   },
   "author": "bahdan kanoplich",
   "license": "ISC"

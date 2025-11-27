@@ -111,7 +111,6 @@ class BackupManager extends EventEmitter {
     clearInterval(this.#intervalId);
     this.#intervalId = null;
     this.emit("backup:stopped");
-    
   }
 
   isRunning() {
