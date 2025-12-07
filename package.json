@@ -5,8 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "node pr-2/index.js",
-    "test": "node pr-2/index.js"
+    "test": "node pr-2/index.js",
+    "backend": "cd pr-3 && node index.js",
+    "frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd pr-3 && node index.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start:all": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
   },
   "author": "bahdan kanoplich",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
