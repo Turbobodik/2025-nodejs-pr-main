@@ -16,6 +16,7 @@ const {
   stopBackupManager,
   getBackupManager,
 } = require('./student');
+const { BackupReporter } = require('./backup-reporter');
 
 const app = express();
 const PORT = 3000;
@@ -115,10 +116,47 @@ app.get('/api/students/load', async (req, res) => {
   }
 });
 
-// GET /api/students - Get all students
+// GET /api/students - Get all students (with optional filtering)
 app.get('/api/students', (req, res) => {
   try {
-    const students = getAllStudents();
+    let students = getAllStudents();
+    
+    // Apply filters from query parameters
+    const { group, minAge, maxAge } = req.query;
+    
+    if (group !== undefined) {
+      const groupNum = parseInt(group);
+      if (isNaN(groupNum)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Group must be a number'
+        });
+      }
+      students = students.filter(s => s.group === groupNum);
+    }
+    
+    if (minAge !== undefined) {
+      const minAgeNum = parseInt(minAge);
+      if (isNaN(minAgeNum)) {
+        return res.status(400).json({
+          success: false,
+          error: 'minAge must be a number'
+        });
+      }
+      students = students.filter(s => s.age >= minAgeNum);
+    }
+    
+    if (maxAge !== undefined) {
+      const maxAgeNum = parseInt(maxAge);
+      if (isNaN(maxAgeNum)) {
+        return res.status(400).json({
+          success: false,
+          error: 'maxAge must be a number'
+        });
+      }
+      students = students.filter(s => s.age <= maxAgeNum);
+    }
+    
     res.status(200).json({
       success: true,
       count: students.length,
@@ -405,6 +443,24 @@ app.get('/api/backup/status', (req, res) => {
     res.status(200).json({
       success: true,
       status: status
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// GET /api/backup/report - Get backup report
+app.get('/api/backup/report', async (req, res) => {
+  try {
+    const reporter = new BackupReporter();
+    const report = await reporter.generateReport();
+
+    res.status(200).json({
+      success: true,
+      report: report
     });
   } catch (error) {
     res.status(500).json({
