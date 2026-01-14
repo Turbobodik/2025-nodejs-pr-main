@@ -1,0 +1,25 @@
+{
+  "name": "pr-4",
+  "version": "1.0.0",
+  "description": "Student Management API with PostgreSQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "create-db": "node scripts/create-db.js",
+    "migrate": "node migrations/migrate.js",
+    "setup": "npm run create-db && npm run migrate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "sequelize": "^6.37.3",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "express-validator": "^7.0.1"
+  }
+}
